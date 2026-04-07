@@ -1,0 +1,22 @@
+# Project specific
+/data-fetching-scripts
+/roblox-requirements
+
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+.next/
+build/
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
