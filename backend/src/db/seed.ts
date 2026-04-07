@@ -29,7 +29,7 @@ interface GameEntry {
 }
 
 async function seed(): Promise<void> {
-  const dataPath = path.resolve(__dirname, '../../..', 'data-fetching', 'final_game_data.json');
+  const dataPath = path.resolve(__dirname, '../../data-fetching', 'final_game_data.json');
 
   if (!fs.existsSync(dataPath)) {
     console.error(`[Seed] Data file not found: ${dataPath}`);
