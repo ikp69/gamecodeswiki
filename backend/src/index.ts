@@ -19,6 +19,9 @@ dotenv.config();
 const app = express();
 const PORT = parseInt(process.env.PORT || '3001', 10);
 
+// Trust proxy for Railway/Proxies (required for express-rate-limit)
+app.set('trust proxy', 1);
+
 // ─── Global Middleware ─────────────────────────────────────────────
 
 // Security headers

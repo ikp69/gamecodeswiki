@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Game, Code } from '@/lib/types';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
-const FRONTEND_KEY = process.env.NEXT_PUBLIC_FRONTEND_KEY || 'codergg-frontend-key';
+const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001').replace(/\/$/, '');
+const FRONTEND_KEY = process.env.NEXT_PUBLIC_FRONTEND_KEY || '';
 
 const DEFAULT_REVALIDATE = process.env.NODE_ENV === 'development' ? 0 : 3600;
 
@@ -35,7 +35,7 @@ async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
     } catch (error: any) {
         // Handle connection errors
         const isConnectionError = error.code === 'ECONNREFUSED' || error.message?.includes('fetch failed');
-        
+
         if (isConnectionError) {
             console.warn(`[API] Connection failed to ${url}. Returning empty defaults.`);
             return {
@@ -43,7 +43,7 @@ async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
                 pagination: { total: 0, totalPages: 0 }
             } as unknown as T;
         }
-        
+
         throw error;
     }
 }
