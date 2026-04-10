@@ -2,7 +2,7 @@ import { getPopularGames } from '@/lib/api';
 import { GameCardGrid } from '@/components/game/GameCard';
 import { Game } from '@/lib/types';
 
-export const revalidate = 0;
+export const revalidate = 2592000;
 
 export const metadata = {
     title: 'Popular Games | Gamecodeswiki',

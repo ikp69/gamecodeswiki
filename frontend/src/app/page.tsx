@@ -4,7 +4,7 @@ import { GameList } from "@/components/game/GameList";
 import { GameCardFeatured } from "@/components/game/GameCard";
 import { TrendingUp } from "lucide-react";
 
-export const revalidate = 3600;
+export const revalidate = 2592000;
 
 interface HomeProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;

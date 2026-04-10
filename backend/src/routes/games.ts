@@ -7,7 +7,7 @@ const router = Router();
 
 // ─── GET /api/v1/games ─────────────────────────────────────────────
 // Unified game listing with sort, genre, search, pagination
-router.get('/', cache(60), async (req: Request, res: Response, next: NextFunction) => {
+router.get('/', cache(), async (req: Request, res: Response, next: NextFunction) => {
   try {
     const page = Math.max(1, parseInt(req.query.page as string) || 1);
     const limit = Math.min(100, Math.max(1, parseInt(req.query.limit as string) || 20));
@@ -112,7 +112,7 @@ router.get('/', cache(60), async (req: Request, res: Response, next: NextFunctio
 
 // ─── GET /api/v1/games/:slug ───────────────────────────────────────
 // Full game detail with codes + related games
-router.get('/:slug', cache(900), async (req: Request, res: Response, next: NextFunction) => {
+router.get('/:slug', cache(), async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { slug } = req.params;
 

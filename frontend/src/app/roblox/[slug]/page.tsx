@@ -10,7 +10,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Heart, Users, MessageSquare, Bell } from 'lucide-react';
 
-export const revalidate = 3600;
+export const revalidate = 2592000;
 
 interface PageProps {
     params: Promise<{ slug: string }>;

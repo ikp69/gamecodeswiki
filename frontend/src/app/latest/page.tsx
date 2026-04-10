@@ -2,7 +2,7 @@ import { getLatestGames } from '@/lib/api';
 import { GameCardGrid } from '@/components/game/GameCard';
 import { Game } from '@/lib/types';
 
-export const revalidate = 3600;
+export const revalidate = 2592000;
 
 export const metadata = {
     title: 'Latest Updated Codes',

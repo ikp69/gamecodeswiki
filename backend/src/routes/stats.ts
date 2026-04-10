@@ -6,7 +6,7 @@ const router = Router();
 
 // ─── GET /api/v1/stats ─────────────────────────────────────────────
 // Site-wide statistics
-router.get('/', cache(600), async (_req: Request, res: Response, next: NextFunction) => {
+router.get('/', cache(), async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await query(`
       SELECT

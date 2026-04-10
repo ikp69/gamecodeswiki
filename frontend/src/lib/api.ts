@@ -4,7 +4,7 @@ import { Game, Code } from '@/lib/types';
 const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001').replace(/\/$/, '');
 const FRONTEND_KEY = process.env.NEXT_PUBLIC_FRONTEND_KEY || '';
 
-const DEFAULT_REVALIDATE = process.env.NODE_ENV === 'development' ? 0 : 3600;
+const DEFAULT_REVALIDATE = 2592000; // 30 days
 
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
     const url = `${API_URL}${path}`;

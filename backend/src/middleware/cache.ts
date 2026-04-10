@@ -1,18 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
-import redis from '../lib/redis.js';
+import redis, { CACHE_PREFIX } from '../lib/redis.js';
 
 /**
  * Redis response cache middleware factory.
  * Caches the full JSON response body with a given TTL.
  */
-export function cache(ttlSeconds: number) {
+export function cache(ttlSeconds: number = 2592000) { // Default to 30 days
   return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     // Skip caching if Redis is not connected
     if (redis.status !== 'ready') {
       return next();
     }
 
-    const cacheKey = `cache:${req.originalUrl}`;
+    const cacheKey = `${CACHE_PREFIX}${req.originalUrl}`;
 
     try {
       const cached = await redis.get(cacheKey);

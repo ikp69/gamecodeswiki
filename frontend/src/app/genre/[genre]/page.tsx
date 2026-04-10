@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-export const revalidate = 3600;
+export const revalidate = 2592000;
 
 interface PageProps {
     params: Promise<{ genre: string }>;

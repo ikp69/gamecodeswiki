@@ -6,7 +6,7 @@ const router = Router();
 
 // ─── GET /sitemap.xml ──────────────────────────────────────────────
 // Auto-generated XML sitemap from game slugs
-router.get('/', cache(3600), async (req: Request, res: Response, next: NextFunction) => {
+router.get('/', cache(), async (req: Request, res: Response, next: NextFunction) => {
   try {
     const baseUrl = process.env.SITE_URL || 'https://codergg.com';
 
