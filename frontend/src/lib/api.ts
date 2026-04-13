@@ -6,7 +6,7 @@ const FRONTEND_KEY = process.env.NEXT_PUBLIC_FRONTEND_KEY || '';
 
 const DEFAULT_REVALIDATE = 2592000; // 30 days
 
-async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
+async function apiFetch<T>(path: string, options?: RequestInit, retries = 3): Promise<T> {
     const url = `${API_URL}${path}`;
     try {
         const res = await fetch(url, {
@@ -19,14 +19,12 @@ async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
         });
 
         if (!res.ok) {
-            // During build time, don't crash on 404 or other API errors
-            const isBuildTime = process.env.NODE_ENV === 'production' && typeof window === 'undefined';
-            if (isBuildTime) {
-                console.warn(`[API Build Warning] ${res.status} on ${url}. Returning empty defaults.`);
-                return {
-                    data: [],
-                    pagination: { total: 0, totalPages: 0 }
-                } as unknown as T;
+            // Retry on rate limit (429) with exponential backoff
+            if (res.status === 429 && retries > 0) {
+                const delay = Math.pow(2, 3 - retries) * 1000; // 1s, 2s, 4s
+                console.warn(`[API] Rate limited on ${url}. Retrying in ${delay}ms... (${retries} retries left)`);
+                await new Promise(r => setTimeout(r, delay));
+                return apiFetch<T>(path, options, retries - 1);
             }
             throw new Error(`API error ${res.status}: ${res.statusText} at ${url}`);
         }

@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { Heart, Users, MessageSquare, Bell } from 'lucide-react';
 
 export const revalidate = 2592000;
+export const dynamicParams = true;
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -24,7 +25,7 @@ export async function generateStaticParams() {
     try {
         const games = await getAllGames();
         if (!games || !Array.isArray(games)) return [];
-        return games.slice(0, 20).map((game) => ({
+        return games.map((game) => ({
             slug: game.gameSlug,
         }));
     } catch (error) {
